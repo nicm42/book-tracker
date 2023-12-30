@@ -1,13 +1,16 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
+  const [data, setData] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('/api');
-        const data = await response.json();
-        console.log(data[0].properties.title); // This is the sheet data
+        const apiData = await response.json();
+        //console.log(apiData);
+        setData(apiData);
       } catch (error) {
         console.error(error);
       }
