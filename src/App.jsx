@@ -21,7 +21,20 @@ function App() {
     fetchData();
   }, []);
 
-  return <></>;
+  return (
+    <>
+      <h1>Book Tracker</h1>
+      <label>
+        Choose a year to see statistics for:
+        <select name="selectedYear">
+          <option value="">Select a year</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+        </select>
+      </label>
+    </>
+  );
 }
 
 export default App;
