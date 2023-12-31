@@ -1,5 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
 import App from './App';
 
 describe('Testing set up', () => {
@@ -14,8 +13,5 @@ describe('Testing set up', () => {
       screen.getByLabelText('Choose a year to see statistics for:'),
     ).toBeInTheDocument();
     expect(screen.getByRole('combobox')).toHaveValue('');
-    // TODO this only finds one option
-    //await waitFor(() => expect(screen.getAllByRole('option')).toHaveLength(4));
-    //expect(screen.getAllByRole('option')).toHaveLength(4)
   });
 });

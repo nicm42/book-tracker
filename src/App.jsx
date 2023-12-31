@@ -17,7 +17,8 @@ function App() {
         //setData(apiData);
         setData(dummyData);
         // Get the sheet names to fill in the select options
-        setYears(data.map((element) => element.sheet));
+        //setYears(data.map((element) => element.sheet));
+        setYears(dummyData.map((element) => element.sheet));
       } catch (error) {
         console.error(error);
       }
