@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import DataContext from './contexts/DataContext';
 import Content from './components/Content';
+import AddBook from './components/AddBook';
 import './App.css';
 import dummyData from './dummyData.json';
 
@@ -33,6 +34,8 @@ function App() {
       <DataContext.Provider value={{ data, years }}>
         <Content data={data} years={years} />
       </DataContext.Provider>
+      <AddBook type="acquired" />
+      <AddBook type="read" />
     </>
   );
 }
