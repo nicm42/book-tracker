@@ -4,6 +4,7 @@ function Content({ data, years }) {
   const [selectedYear, setSelectedYear] = useState('');
   const [booksAcquired, setBooksAcquired] = useState(0);
   const [booksRead, setBooksRead] = useState(0);
+  const [booksAcquiredNotRead, setBooksAcquiredNotRead] = useState(0);
 
   const calculateBooksAcquired = (year) => {
     const thisYearsData = data.filter((obj) => {
@@ -29,10 +30,37 @@ function Content({ data, years }) {
     }
   };
 
+  const calculateBooksAcquiredNotRead = (year) => {
+    const thisYearsData = data.filter((obj) => {
+      return obj.sheet === year;
+    });
+    if (thisYearsData[0]) {
+      let thisYearsAcquired = [];
+      let thisYearsRead = [];
+      thisYearsData[0].data.forEach((books, index) => {
+        if (index !== 0) {
+          if (books[0] !== '') {
+            thisYearsAcquired.push(books[0]);
+          }
+          if (books[1] !== '') {
+            thisYearsRead.push(books[1]);
+          }
+        }
+      });
+      const thisYearsAcquiredNotRead = thisYearsAcquired.filter((book) => {
+        if (thisYearsRead.includes(book)) return book;
+      });
+      setBooksAcquiredNotRead(
+        thisYearsAcquired.length - thisYearsAcquiredNotRead.length,
+      );
+    }
+  };
+
   const yearSelected = (year) => {
     setSelectedYear(year);
     calculateBooksAcquired(year);
     calculateBooksRead(year);
+    calculateBooksAcquiredNotRead(year);
   };
 
   return (
@@ -60,6 +88,10 @@ function Content({ data, years }) {
           </p>
           <p>
             Total books read in {selectedYear} is: {booksRead}
+          </p>
+          <p>
+            Total books acquired in {selectedYear} but not read is:{' '}
+            {booksAcquiredNotRead}
           </p>
         </div>
       )}
