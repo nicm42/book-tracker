@@ -8,12 +8,12 @@ function Content({ data, years }) {
     const thisYearsData = data.filter((obj) => {
       return obj.sheet === year;
     });
-    console.log(thisYearsData[0].data);
-    const thisYearsAcquired = thisYearsData[0].data.filter((books, index) => {
-      if (index !== 0) return books[0] !== '';
-    });
-    console.log(thisYearsAcquired);
-    setBooksAcquired(thisYearsAcquired.length);
+    if (thisYearsData[0]) {
+      const thisYearsAcquired = thisYearsData[0].data.filter((books, index) => {
+        if (index !== 0) return books[0] !== '';
+      });
+      setBooksAcquired(thisYearsAcquired.length);
+    }
   };
 
   const yearSelected = (year) => {

@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Content from './Content';
 import DataContext from '../contexts/DataContext';
+import Content from './Content';
 
 describe('Testing set up', () => {
   const data = [
@@ -51,12 +51,12 @@ describe('Testing set up', () => {
   test('information about a specific year should be correct', async () => {
     await userEvent.selectOptions(
       screen.getByRole('combobox'),
-      screen.getByRole('option', { name: '2023' }),
+      screen.getByRole('option', { name: '2022' }),
     );
-    expect(screen.getByRole('option', { name: '2023' }).selected).toBeTruthy();
-    expect(screen.getByRole('option', { name: '2024' }).selected).toBeFalsy();
+    expect(screen.getByRole('option', { name: '2022' }).selected).toBeTruthy();
+    expect(screen.getByRole('option', { name: '2023' }).selected).toBeFalsy();
     expect(
-      screen.getByText('Total books acquired in 2023 is: 4'),
+      screen.getByText('Total books acquired in 2022 is: 4'),
     ).toBeInTheDocument();
   });
 });
