@@ -13,7 +13,7 @@ function Content({ data, years }) {
     });
     if (thisYearsData[0]) {
       const thisYearsAcquired = thisYearsData[0].data.filter((books, index) => {
-        if (index !== 0) return books[0] !== '';
+        if (index !== 0 && books[0]) return books[0];
       });
       setBooksAcquired(thisYearsAcquired.length);
     }
@@ -25,7 +25,7 @@ function Content({ data, years }) {
     });
     if (thisYearsData[0]) {
       const thisYearsRead = thisYearsData[0].data.filter((books, index) => {
-        if (index !== 0) return books[1] !== '';
+        if (index !== 0 && books[1]) return books[1];
       });
       setBooksRead(thisYearsRead.length);
     }
@@ -40,10 +40,10 @@ function Content({ data, years }) {
       let thisYearsRead = [];
       thisYearsData[0].data.forEach((books, index) => {
         if (index !== 0) {
-          if (books[0] !== '') {
+          if (books[0]) {
             thisYearsAcquired.push(books[0]);
           }
-          if (books[1] !== '') {
+          if (books[1]) {
             thisYearsRead.push(books[1]);
           }
         }
@@ -66,10 +66,10 @@ function Content({ data, years }) {
       let thisYearsRead = [];
       thisYearsData[0].data.forEach((books, index) => {
         if (index !== 0) {
-          if (books[0] !== '') {
+          if (books[0]) {
             thisYearsAcquired.push(books[0]);
           }
-          if (books[1] !== '') {
+          if (books[1]) {
             thisYearsRead.push(books[1]);
           }
         }
