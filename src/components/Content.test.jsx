@@ -2,31 +2,10 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DataContext from '../contexts/DataContext';
 import Content from './Content';
+import dummyData from '../dummyData.json';
 
 describe('Testing set up', () => {
-  const data = [
-    {
-      sheet: '2022',
-      data: [
-        ['Books acquired', 'Books read'],
-        [
-          'Birds of Passage by Robert Mammone',
-          'The Autobiography of Mr. Spock by Una McCormack',
-        ],
-        [
-          'Child of the New World by Andy Frankham-Allen',
-          'A Guernsey Girl at the Chalet School by Amy Fletcher',
-        ],
-        [
-          'Coming Up for Air by Tom Daley',
-          'Eleanor Oliphant is Completely Fine by Gail Honeyman',
-        ],
-        ['A Class Act by Rob Beckett', 'Birds of Passage by Robert Mammone'],
-        ['', "Let's Talk About Love by Claire Kann"],
-        ['', 'Still Just a Geek by Wil Wheaton'],
-      ],
-    },
-  ];
+  const data = dummyData;
   const years = [2022, 2023, 2024];
 
   beforeEach(() => {
@@ -59,14 +38,14 @@ describe('Testing set up', () => {
       screen.getByText('Total books acquired in 2022 is: 4'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('Total books read in 2022 is: 6'),
+      screen.getByText('Total books read in 2022 is: 5'),
     ).toBeInTheDocument();
     expect(
       screen.getByText('Total books acquired in 2022 but not read is: 3'),
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        'Total books read in 2022 acquired in a previous year is: 5',
+        'Total books read in 2022 acquired in a previous year is: 4',
       ),
     ).toBeInTheDocument();
   });
