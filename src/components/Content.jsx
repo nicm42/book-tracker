@@ -3,6 +3,7 @@ import { useState } from 'react';
 function Content({ data, years }) {
   const [selectedYear, setSelectedYear] = useState('');
   const [booksAcquired, setBooksAcquired] = useState(0);
+  const [booksRead, setBooksRead] = useState(0);
 
   const calculateBooksAcquired = (year) => {
     const thisYearsData = data.filter((obj) => {
@@ -16,9 +17,22 @@ function Content({ data, years }) {
     }
   };
 
+  const calculateBooksRead = (year) => {
+    const thisYearsData = data.filter((obj) => {
+      return obj.sheet === year;
+    });
+    if (thisYearsData[0]) {
+      const thisYearsRead = thisYearsData[0].data.filter((books, index) => {
+        if (index !== 0) return books[1] !== '';
+      });
+      setBooksRead(thisYearsRead.length);
+    }
+  };
+
   const yearSelected = (year) => {
     setSelectedYear(year);
     calculateBooksAcquired(year);
+    calculateBooksRead(year);
   };
 
   return (
@@ -40,9 +54,14 @@ function Content({ data, years }) {
         </label>
       </form>
       {selectedYear !== '' && (
-        <p>
-          Total books acquired in {selectedYear} is: {booksAcquired}
-        </p>
+        <div>
+          <p>
+            Total books acquired in {selectedYear} is: {booksAcquired}
+          </p>
+          <p>
+            Total books read in {selectedYear} is: {booksRead}
+          </p>
+        </div>
       )}
     </>
   );
