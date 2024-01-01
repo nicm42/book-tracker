@@ -64,5 +64,10 @@ describe('Testing set up', () => {
     expect(
       screen.getByText('Total books acquired in 2022 but not read is: 3'),
     ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Total books read in 2022 acquired in a previous year is: 5',
+      ),
+    ).toBeInTheDocument();
   });
 });
