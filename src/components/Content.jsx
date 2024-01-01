@@ -7,88 +7,51 @@ function Content({ data, years }) {
   const [booksAcquiredNotRead, setBooksAcquiredNotRead] = useState(0);
   const [booksReadNotAcquired, setBooksReadNotAcquired] = useState(0);
 
-  const calculateBooksAcquired = (year) => {
+  const calculateBooksAcquiredNotRead = (thisYearsAcquired, thisYearsRead) => {
+    const thisYearsAcquiredNotRead = thisYearsAcquired.filter((book) => {
+      if (thisYearsRead.includes(book)) return book;
+    });
+    setBooksAcquiredNotRead(
+      thisYearsAcquired.length - thisYearsAcquiredNotRead.length,
+    );
+  };
+
+  const calculateBooksReadNotAcquired = (thisYearsAcquired, thisYearsRead) => {
+    const thisYearsReadNotAcquired = thisYearsRead.filter((book) => {
+      if (thisYearsAcquired.includes(book)) return book;
+    });
+    setBooksReadNotAcquired(
+      thisYearsRead.length - thisYearsReadNotAcquired.length,
+    );
+  };
+
+  const calculateBooks = (year) => {
     const thisYearsData = data.filter((obj) => {
       return obj.sheet === year;
     });
     if (thisYearsData[0]) {
-      const thisYearsAcquired = thisYearsData[0].data.filter((books, index) => {
-        if (index !== 0 && books[0]) return books[0];
+      let thisYearsAcquired = [];
+      let thisYearsRead = [];
+      thisYearsData[0].data.forEach((books, index) => {
+        if (index !== 0) {
+          if (books[0]) {
+            thisYearsAcquired.push(books[0]);
+          }
+          if (books[1]) {
+            thisYearsRead.push(books[1]);
+          }
+        }
       });
       setBooksAcquired(thisYearsAcquired.length);
-    }
-  };
-
-  const calculateBooksRead = (year) => {
-    const thisYearsData = data.filter((obj) => {
-      return obj.sheet === year;
-    });
-    if (thisYearsData[0]) {
-      const thisYearsRead = thisYearsData[0].data.filter((books, index) => {
-        if (index !== 0 && books[1]) return books[1];
-      });
       setBooksRead(thisYearsRead.length);
-    }
-  };
-
-  const calculateBooksAcquiredNotRead = (year) => {
-    const thisYearsData = data.filter((obj) => {
-      return obj.sheet === year;
-    });
-    if (thisYearsData[0]) {
-      let thisYearsAcquired = [];
-      let thisYearsRead = [];
-      thisYearsData[0].data.forEach((books, index) => {
-        if (index !== 0) {
-          if (books[0]) {
-            thisYearsAcquired.push(books[0]);
-          }
-          if (books[1]) {
-            thisYearsRead.push(books[1]);
-          }
-        }
-      });
-      const thisYearsAcquiredNotRead = thisYearsAcquired.filter((book) => {
-        if (thisYearsRead.includes(book)) return book;
-      });
-      setBooksAcquiredNotRead(
-        thisYearsAcquired.length - thisYearsAcquiredNotRead.length,
-      );
-    }
-  };
-
-  const calculateBooksReadNotAcquired = (year) => {
-    const thisYearsData = data.filter((obj) => {
-      return obj.sheet === year;
-    });
-    if (thisYearsData[0]) {
-      let thisYearsAcquired = [];
-      let thisYearsRead = [];
-      thisYearsData[0].data.forEach((books, index) => {
-        if (index !== 0) {
-          if (books[0]) {
-            thisYearsAcquired.push(books[0]);
-          }
-          if (books[1]) {
-            thisYearsRead.push(books[1]);
-          }
-        }
-      });
-      const thisYearsReadNotAcquired = thisYearsRead.filter((book) => {
-        if (thisYearsAcquired.includes(book)) return book;
-      });
-      setBooksReadNotAcquired(
-        thisYearsRead.length - thisYearsReadNotAcquired.length,
-      );
+      calculateBooksAcquiredNotRead(thisYearsAcquired, thisYearsRead);
+      calculateBooksReadNotAcquired(thisYearsAcquired, thisYearsRead);
     }
   };
 
   const yearSelected = (year) => {
     setSelectedYear(year);
-    calculateBooksAcquired(year);
-    calculateBooksRead(year);
-    calculateBooksAcquiredNotRead(year);
-    calculateBooksReadNotAcquired(year);
+    calculateBooks(year);
   };
 
   return (
