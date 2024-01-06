@@ -92,7 +92,23 @@ describe('Testing add book acquired', () => {
       screen.queryByRole('button', { name: 'Submit book' }),
     ).not.toBeInTheDocument();
 
-    // Choose a year
+    // Choose a year with no acquired books
+    await userEvent.selectOptions(
+      screen.getByRole('combobox'),
+      screen.getByRole('option', { name: '2024' }),
+    );
+    expect(screen.getByRole('option', { name: '2024' }).selected).toBeTruthy();
+    expect(
+      screen.queryByLabelText("Select the book you've read"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByLabelText('Type in title and author'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Submit book' }),
+    ).toBeInTheDocument();
+
+    // Choose a year with acquired books
     await userEvent.selectOptions(
       screen.getByRole('combobox'),
       screen.getByRole('option', { name: '2022' }),

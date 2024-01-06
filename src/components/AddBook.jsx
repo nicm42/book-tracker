@@ -9,6 +9,33 @@ function AddBook({ data, years }) {
   const [bookToAdd, setBookToAdd] = useState('');
   const [booksAdded, setBooksAdded] = useState(false);
 
+  let showAcquiredDropdown = false;
+  if (
+    typeAdding === 'read' &&
+    selectedYear !== '' &&
+    booksAcquired.length > 0
+  ) {
+    showAcquiredDropdown = true;
+  }
+
+  let showBookInput = false;
+  if (
+    (typeAdding === 'acquired' && selectedYear !== '') ||
+    (typeAdding === 'read' &&
+      (selectedBook === 'none' || (selectedYear && booksAcquired.length === 0)))
+  ) {
+    showBookInput = true;
+  }
+
+  let showSubmitButton = false;
+  if (
+    (typeAdding === 'acquired' && selectedYear !== '') ||
+    (typeAdding === 'read' &&
+      (selectedBook !== '' || (selectedYear && booksAcquired.length === 0)))
+  ) {
+    showSubmitButton = true;
+  }
+
   const calculateBooks = (year) => {
     const thisYearsData = data.filter((obj) => {
       return obj.sheet === year;
@@ -92,7 +119,7 @@ function AddBook({ data, years }) {
               ))}
             </select>
           </label>
-          {typeAdding === 'read' && selectedYear !== '' && (
+          {showAcquiredDropdown && (
             <label>
               Select the book you've read:
               <select
@@ -110,8 +137,7 @@ function AddBook({ data, years }) {
               </select>
             </label>
           )}
-          {((typeAdding === 'acquired' && selectedYear !== '') ||
-            (typeAdding === 'read' && selectedBook === 'none')) && (
+          {showBookInput && (
             <div>
               <label htmlFor="book">Type in title and author</label>
               <input
@@ -124,10 +150,7 @@ function AddBook({ data, years }) {
               />
             </div>
           )}
-          {((typeAdding === 'acquired' && selectedYear !== '') ||
-            (typeAdding === 'read' && selectedBook !== '')) && (
-            <button type="submit">Submit book</button>
-          )}
+          {showSubmitButton && <button type="submit">Submit book</button>}
         </form>
       )}
       {booksAdded && <p>Book submitted</p>}
