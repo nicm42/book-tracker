@@ -6,6 +6,8 @@ function AddBook({ data, years }) {
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedBook, setSelectedBook] = useState('');
   const [booksAcquired, setBooksAcquired] = useState([]);
+  const [bookToAdd, setBookToAdd] = useState('');
+  const [booksAdded, setBooksAdded] = useState(false);
 
   const calculateBooks = (year) => {
     const thisYearsData = data.filter((obj) => {
@@ -27,6 +29,7 @@ function AddBook({ data, years }) {
   const setForm = (type) => {
     setIsFormShowing(true);
     setTypeAdding(type);
+    setBooksAdded(false);
   };
 
   const selectYear = (year) => {
@@ -34,12 +37,46 @@ function AddBook({ data, years }) {
     calculateBooks(year);
   };
 
+  const selectBook = (book) => {
+    setSelectedBook(book);
+    if (book !== 'none') {
+      setBookToAdd(book);
+    }
+  };
+
+  const postBook = async (event) => {
+    event.preventDefault();
+
+    const dataToSend = {
+      type: typeAdding,
+      year: selectedYear,
+      book: bookToAdd,
+    };
+
+    const response = await fetch('/addbook', {
+      method: 'POST',
+      body: JSON.stringify(dataToSend),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      console.log('Book added');
+      setIsFormShowing(false);
+      setBooksAdded(true);
+    } else {
+      console.log('Book not added');
+      setBooksAdded(false);
+    }
+  };
+
   return (
     <>
       <button onClick={() => setForm('acquired')}>Add book acquired</button>
       <button onClick={() => setForm('read')}>Add book read</button>
       {isFormShowing && (
-        <form>
+        <form onSubmit={(e) => postBook(e)}>
           <label>
             Choose a year to add a book to:
             <select
@@ -61,7 +98,7 @@ function AddBook({ data, years }) {
               <select
                 required
                 value={selectedBook}
-                onChange={(e) => setSelectedBook(e.target.value)}
+                onChange={(e) => selectBook(e.target.value)}
               >
                 <option value="">Select a book</option>
                 {booksAcquired.map((book) => (
@@ -77,7 +114,14 @@ function AddBook({ data, years }) {
             (typeAdding === 'read' && selectedBook === 'none')) && (
             <div>
               <label htmlFor="book">Type in title and author</label>
-              <input type="text" id="book" name="book" required />
+              <input
+                value={bookToAdd}
+                type="text"
+                id="book"
+                name="book"
+                required
+                onChange={(e) => setBookToAdd(e.target.value)}
+              />
             </div>
           )}
           {((typeAdding === 'acquired' && selectedYear !== '') ||
@@ -86,6 +130,7 @@ function AddBook({ data, years }) {
           )}
         </form>
       )}
+      {booksAdded && <p>Book submitted</p>}
     </>
   );
 }

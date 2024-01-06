@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DataContext from '../contexts/DataContext';
 import AddBook from './AddBook';
-import dummyData from '../dummyData.json';
+import dummyData from '../../dummyData.json';
 
 describe('Testing add book acquired', () => {
   const data = dummyData;
@@ -26,6 +26,7 @@ describe('Testing add book acquired', () => {
     expect(
       screen.queryByRole('button', { name: 'Submit book' }),
     ).not.toBeInTheDocument();
+    expect(screen.queryByText('Book submitted')).not.toBeInTheDocument();
   });
 
   test('should show relevant elements if acquired button pressed', async () => {
@@ -56,6 +57,23 @@ describe('Testing add book acquired', () => {
     expect(
       screen.getByRole('button', { name: 'Submit book' }),
     ).toBeInTheDocument();
+
+    // Type in a book and press submit
+    await userEvent.type(
+      screen.getByLabelText('Type in title and author'),
+      'Test book by Anon',
+    );
+    await userEvent.click(screen.getByRole('button', { name: 'Submit book' }));
+    expect(
+      screen.queryByLabelText('Choose a year to add a book to:'),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByLabelText('Type in title and author'),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Submit book' }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText('Book submitted')).toBeInTheDocument();
   });
 
   test('should show relevant elements if read button pressed', async () => {

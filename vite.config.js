@@ -8,7 +8,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': {
+      '/getbooks': {
+        target: `http://localhost:${port}`,
+        changeOrigin: true,
+      },
+      '/addbook': {
         target: `http://localhost:${port}`,
         changeOrigin: true,
       },
