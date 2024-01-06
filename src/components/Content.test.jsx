@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DataContext from '../contexts/DataContext';
 import Content from './Content';
-import dummyData from '../dummyData.json';
+import dummyData from '../../dummyData.json';
 
 describe('Testing set up', () => {
   const data = dummyData;
