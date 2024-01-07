@@ -36,9 +36,9 @@ function App() {
   return (
     <>
       <h1>Book Tracker</h1>
-      <DataContext.Provider value={{ data, years }}>
+      <DataContext.Provider value={{ data, years, setData }}>
         <Content data={data} years={years} />
-        <AddBook data={data} years={years} />
+        <AddBook data={data} years={years} setData={setData} />
       </DataContext.Provider>
     </>
   );

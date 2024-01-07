@@ -25,7 +25,7 @@ app.get('/getbooks', async (req, res) => {
 });
 
 app.post('/addbook', async function (req, res) {
-  console.log(req.body);
+  //console.log(req.body);
   fs.readFile(path.resolve(__dirname, 'dummyData.json'), (error, data) => {
     if (error) {
       console.log(error);
@@ -61,9 +61,10 @@ app.post('/addbook', async function (req, res) {
           console.log('Updated file successfully');
         },
       );
+      res.send(JSON.stringify(dataFromFile, null, 2));
     }
   });
-  res.status(201).json();
+  //res.status(201).json();
 });
 
 app.listen(port, () => {

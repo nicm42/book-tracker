@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function AddBook({ data, years }) {
+function AddBook({ data, years, setData }) {
   const [isFormShowing, setIsFormShowing] = useState(false);
   const [typeAdding, setTypeAdding] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
@@ -87,6 +87,10 @@ function AddBook({ data, years }) {
         'Content-Type': 'application/json',
       },
     });
+
+    const updatedData = await response.json();
+    //console.log(updatedData);
+    setData(updatedData);
 
     if (response.ok) {
       console.log('Book added');
