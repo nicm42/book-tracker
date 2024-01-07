@@ -61,7 +61,7 @@ describe('Testing add book acquired', () => {
     // Type in a book and press submit
     await userEvent.type(
       screen.getByLabelText('Type in title and author'),
-      'Test book by Anon',
+      'Test book 1 by Anon',
     );
     await userEvent.click(screen.getByRole('button', { name: 'Submit book' }));
     expect(
@@ -144,5 +144,22 @@ describe('Testing add book acquired', () => {
     expect(
       screen.getByRole('button', { name: 'Submit book' }),
     ).toBeInTheDocument();
+
+    // Type in a book and press submit
+    await userEvent.type(
+      screen.getByLabelText('Type in title and author'),
+      'Test book 2 by Anon',
+    );
+    await userEvent.click(screen.getByRole('button', { name: 'Submit book' }));
+    expect(
+      screen.queryByLabelText('Choose a year to add a book to:'),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByLabelText('Type in title and author'),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Submit book' }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText('Book submitted')).toBeInTheDocument();
   });
 });
