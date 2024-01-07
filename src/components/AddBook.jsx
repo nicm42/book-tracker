@@ -80,7 +80,7 @@ function AddBook({ data, years, setData }) {
       book: bookToAdd,
     };
 
-    const response = await fetch('addbook', {
+    const response = await fetch('/addbook', {
       method: 'POST',
       body: JSON.stringify(dataToSend),
       headers: {
