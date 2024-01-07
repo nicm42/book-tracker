@@ -1,0 +1,34 @@
+[
+  {
+    "sheet": "2022",
+    "data": [
+      ["Books acquired", "Books read"],
+      [
+        "Undoctored by Adam Kay",
+        "The Autobiography of Mr. Spock by Una McCormack"
+      ],
+      ["The Theory of Everything Else by Dan Shreiber", ""],
+      [
+        "Coming Up for Air by Tom Daley",
+        "Eleanor Oliphant is Completely Fine by Gail Honeyman"
+      ],
+      ["A Class Act by Rob Beckett", "Undoctored by Adam Kay"],
+      ["", "Quantum Leap: Pulitzer by L Elizabeth Storm"],
+      ["", "Still Just a Geek by Wil Wheaton"]
+    ]
+  },
+  {
+    "sheet": "2023",
+    "data": [
+      ["Books acquired", "Books read"],
+      ["", "Quantum Leap: Pulitzer by L Elizabeth Storm"],
+      ["A 1930s Childhood by Colin G Maggs"],
+      ["Murdle by GT Karber"],
+      ["Everywoman by Jess Phillips", "Everywoman by Jess Phillips"]
+    ]
+  },
+  {
+    "sheet": "2024",
+    "data": [["Books acquired", "Books read"]]
+  }
+]
