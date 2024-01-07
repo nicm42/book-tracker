@@ -80,7 +80,8 @@ function AddBook({ data, years, setData }) {
       book: bookToAdd,
     };
 
-    const response = await fetch('/addbook', {
+    // TODO change back to /addbook
+    const response = await fetch('http://localhost:800/addbook', {
       method: 'POST',
       body: JSON.stringify(dataToSend),
       headers: {
