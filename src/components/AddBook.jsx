@@ -80,7 +80,7 @@ function AddBook({ data, years, setData }) {
       book: bookToAdd,
     };
 
-    const response = await fetch('/addbook', {
+    const response = await fetch('addbook', {
       method: 'POST',
       body: JSON.stringify(dataToSend),
       headers: {
@@ -117,7 +117,7 @@ function AddBook({ data, years, setData }) {
             >
               <option value="">Select a year</option>
               {years.map((year) => (
-                <option key={year} value={year}>
+                <option key={year} value={year} data-testid={`add-${year}`}>
                   {year}
                 </option>
               ))}

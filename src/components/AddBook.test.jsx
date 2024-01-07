@@ -7,11 +7,12 @@ import dummyData from '../../dummyData.json';
 describe('Testing add book acquired', () => {
   const data = dummyData;
   const years = [2022, 2023, 2024];
+  const setData = vi.fn();
 
   beforeEach(() => {
     render(
-      <DataContext.Provider value={{ data, years }}>
-        <AddBook data={data} years={years} />
+      <DataContext.Provider value={{ data, years, setData }}>
+        <AddBook data={data} years={years} setData={setData} />
       </DataContext.Provider>,
     );
   });
@@ -145,11 +146,7 @@ describe('Testing add book acquired', () => {
       screen.getByRole('button', { name: 'Submit book' }),
     ).toBeInTheDocument();
 
-    // Type in a book and press submit
-    await userEvent.type(
-      screen.getByLabelText('Type in title and author'),
-      'Test book 2 by Anon',
-    );
+    // Press submit - book is already in there from the dropdown earlier
     await userEvent.click(screen.getByRole('button', { name: 'Submit book' }));
     expect(
       screen.queryByLabelText('Choose a year to add a book to:'),

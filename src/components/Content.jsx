@@ -65,7 +65,7 @@ function Content({ data, years }) {
           >
             <option value="">Select a year</option>
             {years.map((year) => (
-              <option key={year} value={year}>
+              <option key={year} value={year} data-testid={`stats-${year}`}>
                 {year}
               </option>
             ))}
