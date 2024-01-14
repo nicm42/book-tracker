@@ -1,0 +1,40 @@
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 3rem;
+
+  @media screen and (width >= 400px) {
+    flex-direction: row;
+  }
+}
+
+button {
+  cursor: pointer;
+  transition: background-color 250ms ease-out;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: var(--select-border-colour);
+  }
+}
+
+#choose-year,
+#select-book {
+  margin-bottom: 1rem;
+}
+
+input {
+  margin-bottom: 1rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.submit-button {
+  display: block;
+}
+
+.book-submitted {
+  font-size: 2rem;
+}

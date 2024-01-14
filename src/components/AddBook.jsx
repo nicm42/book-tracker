@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './AddBook.scss';
 
 function AddBook({ data, years, setData }) {
   const [isFormShowing, setIsFormShowing] = useState(false);
@@ -80,7 +81,7 @@ function AddBook({ data, years, setData }) {
       book: bookToAdd,
     };
 
-    const response = await fetch('http://localhost:800/addbook', {
+    const response = await fetch('/addbook', {
       method: 'POST',
       body: JSON.stringify(dataToSend),
       headers: {
@@ -104,30 +105,32 @@ function AddBook({ data, years, setData }) {
 
   return (
     <>
-      <button onClick={() => setForm('acquired')}>Add book acquired</button>
-      <button onClick={() => setForm('read')}>Add book read</button>
+      <div className="buttons">
+        <button onClick={() => setForm('acquired')}>Add book acquired</button>
+        <button onClick={() => setForm('read')}>Add book read</button>
+      </div>
       {isFormShowing && (
         <form onSubmit={(e) => postBook(e)}>
-          <label>
-            Choose a year to add a book to:
-            <select
-              required
-              value={selectedYear}
-              onChange={(e) => selectYear(e.target.value)}
-            >
-              <option value="">Select a year</option>
-              {years.map((year) => (
-                <option key={year} value={year} data-testid={`add-${year}`}>
-                  {year}
-                </option>
-              ))}
-            </select>
-          </label>
+          <label htmlFor="choose-year">Choose a year to add a book to:</label>
+          <select
+            required
+            id="choose-year"
+            value={selectedYear}
+            onChange={(e) => selectYear(e.target.value)}
+          >
+            <option value="">Select a year</option>
+            {years.map((year) => (
+              <option key={year} value={year} data-testid={`add-${year}`}>
+                {year}
+              </option>
+            ))}
+          </select>
           {showAcquiredDropdown && (
-            <label>
-              Select the book you've read:
+            <>
+              <label htmlFor="select-book">Select the book you've read:</label>
               <select
                 required
+                id="select-book"
                 value={selectedBook}
                 onChange={(e) => selectBook(e.target.value)}
               >
@@ -139,7 +142,7 @@ function AddBook({ data, years, setData }) {
                 ))}
                 <option value="none">- Not acquired this year -</option>
               </select>
-            </label>
+            </>
           )}
           {showBookInput && (
             <div>
@@ -154,10 +157,14 @@ function AddBook({ data, years, setData }) {
               />
             </div>
           )}
-          {showSubmitButton && <button type="submit">Submit book</button>}
+          {showSubmitButton && (
+            <button type="submit" className="submit-button">
+              Submit book
+            </button>
+          )}
         </form>
       )}
-      {booksAdded && <p>Book submitted</p>}
+      {booksAdded && <p className="book-submitted">Book submitted!</p>}
     </>
   );
 }
