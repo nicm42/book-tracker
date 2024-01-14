@@ -1,0 +1,35 @@
+:root {
+  --background-colour: hsl(0deg 18% 95%);
+  --select-colour: hsl(0deg 18% 90%);
+  --select-border-colour: hsl(0deg 18% 80%);
+
+  background-color: var(--background-colour);
+  color: #000;
+  color-scheme: light dark;
+  font-family: Ubuntu, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+body {
+  padding-inline: 2rem;
+}
+
+select,
+button,
+input {
+  border: 1px solid var(--select-border-colour);
+  border-radius: 0.125rem;
+  font-size: 1rem;
+}
+
+select,
+button {
+  background-color: var(--select-colour);
+  padding: 0.5rem 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+}

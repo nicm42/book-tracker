@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './Content.scss';
 
 function Content({ data, years }) {
   const [selectedYear, setSelectedYear] = useState('');
@@ -56,37 +57,40 @@ function Content({ data, years }) {
 
   return (
     <>
-      <form>
-        <label>
+      <form className="year-select">
+        <label htmlFor="select-year">
           Choose a year to see statistics for:
-          <select
-            value={selectedYear}
-            onChange={(e) => yearSelected(e.target.value)}
-          >
-            <option value="">Select a year</option>
-            {years.map((year) => (
-              <option key={year} value={year} data-testid={`stats-${year}`}>
-                {year}
-              </option>
-            ))}
-          </select>
         </label>
+        <select
+          id="select-year"
+          value={selectedYear}
+          onChange={(e) => yearSelected(e.target.value)}
+        >
+          <option value="">Select a year</option>
+          {years.map((year) => (
+            <option key={year} value={year} data-testid={`stats-${year}`}>
+              {year}
+            </option>
+          ))}
+        </select>
       </form>
       {selectedYear !== '' && (
-        <div>
+        <div className="stats">
           <p>
-            Total books acquired in {selectedYear} is: {booksAcquired}
+            Total books acquired in {selectedYear} is:{' '}
+            <span className="font-bold">{booksAcquired}</span>
           </p>
           <p>
-            Total books read in {selectedYear} is: {booksRead}
+            Total books read in {selectedYear} is:{' '}
+            <span className="font-bold">{booksRead}</span>
           </p>
           <p>
             Total books acquired in {selectedYear} but not read is:{' '}
-            {booksAcquiredNotRead}
+            <span className="font-bold">{booksAcquiredNotRead}</span>
           </p>
           <p>
             Total books read in {selectedYear} acquired in a previous year is:{' '}
-            {booksReadNotAcquired}
+            <span className="font-bold">{booksReadNotAcquired}</span>
           </p>
         </div>
       )}

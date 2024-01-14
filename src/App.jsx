@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import DataContext from './contexts/DataContext';
 import Content from './components/Content';
 import AddBook from './components/AddBook';
-import './App.css';
+import './App.scss';
 import dummyData from '../dummyData.json';
 
 function App() {
