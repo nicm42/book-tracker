@@ -3,7 +3,7 @@ import DataContext from './contexts/DataContext';
 import Content from './components/Content';
 import AddBook from './components/AddBook';
 import './App.scss';
-import dummyData from '../dummyData.json';
+//import dummyData from '../dummyData.json';
 
 function App() {
   const [data, setData] = useState([]);
@@ -14,14 +14,14 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        //const response = await fetch('/getbooks');
-        //const apiData = await response.json();
+        const response = await fetch('/getbooks');
+        const apiData = await response.json();
         //console.log(apiData);
-        //setData(apiData);
-        setData(dummyData);
+        setData(apiData);
+        //setData(dummyData);
         // Get the sheet names to fill in the select options
-        //setYears(apiData.map((element) => element.sheet));
-        setYears(dummyData.map((element) => element.sheet));
+        setYears(apiData.map((element) => element.sheet));
+        //setYears(dummyData.map((element) => element.sheet));
         gotData.current = true;
       } catch (error) {
         console.error(error);
