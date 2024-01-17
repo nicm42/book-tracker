@@ -64,7 +64,14 @@ app.post('/addbook', async function (req, res) {
       res.send(JSON.stringify(dataFromFile, null, 2));
     }
   });
-  //res.status(201).json();
+});
+
+// Serve app production bundle
+app.use(express.static('dist/app'));
+
+// Handle client routing, return all requests to the app
+app.get('*', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'app/index.html'));
 });
 
 app.listen(port, () => {

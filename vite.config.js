@@ -18,6 +18,9 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    outDir: 'dist/app',
+  },
   test: {
     globals: true,
     environment: 'jsdom',
